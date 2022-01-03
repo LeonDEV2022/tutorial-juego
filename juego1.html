@@ -1,0 +1,31 @@
+<script>
+    //modelo de datos del mundo
+
+    var mundo = {
+        nivel: {},
+
+        camara: {
+            alto: 500,
+            ancho: 700
+
+        },
+        jugador: {
+            alto: 40,
+            ancho: 20,
+            x: 0,
+            y: 0
+        }
+
+    };
+
+    // programa principal
+
+    var juego_terminado = false;
+    setInterval(bucle_principal, 100);
+
+
+    function bucle_principal() {
+        mundo.jugador.x = mundo.jugador.x + 1;
+        console.log("pocision del jugador: " + mundo.jugador.x + ", " + mundo.jugador.y);
+    }
+</script>
