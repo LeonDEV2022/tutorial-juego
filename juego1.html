@@ -25,7 +25,17 @@
 
 
     function bucle_principal() {
-        mundo.jugador.x = mundo.jugador.x + 1;
+        mundo.jugador.x = mundo.jugador.x + 5;
         console.log("pocision del jugador: " + mundo.jugador.x + ", " + mundo.jugador.y);
+        var j1 = document.getElementById("pantalla");
+        var ctx = j1.getContext("2d");
+
+        ctx.fillStyle = "rgb(255, 255, 255)";
+        ctx.fillRect(0, 0, 600, 600);
+
+        ctx.fillStyle = "rgb(201,71,245 )";
+        ctx.fillRect(mundo.jugador.x, mundo.jugador.y, mundo.jugador.ancho, mundo.jugador.alto);
     }
 </script>
+
+<canvas id="pantalla" width="600" height="600"></canvas>
