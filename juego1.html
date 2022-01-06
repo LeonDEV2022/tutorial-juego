@@ -2,7 +2,15 @@
     //modelo de datos del mundo
 
     var mundo = {
-        nivel: {},
+        nivel: {
+            alturas: [1, 1, 2, 7, 6.5, 6.7, 5.5, 5, 3.5, 4, 4.5, 5, 5.5, 6, 5, 4],
+            bloque: {
+                ancho: 100,
+                alto: 40
+
+            }
+
+        },
 
         camara: {
             alto: 500,
@@ -13,7 +21,9 @@
             alto: 40,
             ancho: 20,
             x: 0,
-            y: 0
+            y: 0,
+            velocidad: 6
+
         }
 
     };
@@ -29,13 +39,67 @@
         console.log("pocision del jugador: " + mundo.jugador.x + ", " + mundo.jugador.y);
         var j1 = document.getElementById("pantalla");
         var ctx = j1.getContext("2d");
+        //calculamos la pocicion del jugador
+        avanza_jugador()
+            //vorrado de pantalla
+        borrar_lienzo(ctx);
 
+        //dibujamos el suelo del nivel 
+        dibuja_suelo(ctx)
+            //despues dibujamos al jugador
+        dibuja_jugador(ctx);
+
+    }
+
+    function avanza_jugador() {
+        //avanza acia adelante
+        mundo.jugador.x = mundo.jugador.x + mundo.jugador.velocidad;
+        console.log("pocicion del jugador: " + mundo.jugador.x + "," + mundo.jugador.y);
+    }
+
+    function borrar_lienzo(ctx) {
         ctx.fillStyle = "rgb(255, 255, 255)";
         ctx.fillRect(0, 0, 600, 600);
+    }
 
-        ctx.fillStyle = "rgb(201,71,245 )";
-        ctx.fillRect(mundo.jugador.x, mundo.jugador.y, mundo.jugador.ancho, mundo.jugador.alto);
+    function dibuja_suelo(ctx) {
+        let ancho = mundo.nivel.bloque.ancho;
+        let alto = mundo.nivel.bloque.alto;
+
+        //definimos el color de relleno
+        ctx.fillStyle = "rgb(100, 75, 50)"
+            //empezamos un path
+        ctx.beginPath();
+
+        ctx.moveTo(0, 0);
+        for (var i = 0; i < mundo.nivel.alturas.length; i++) {
+            let altura = mundo.nivel.alturas[i];
+            let x = i * ancho;
+            let y = altura * alto;
+            ctx.lineTo(x, y);
+        }
+        ctx.lineTo(ctx.canvas.width, 0);
+
+        //cerramos el path
+        ctx.closePath();
+
+
+        ctx.fill();
+    }
+
+
+
+    // después dibujaremos al jugador
+    function dibuja_jugador(ctx) {
+
+        let ancho = mundo.jugador.ancho;
+        let alto = mundo.jugador.alto;
+        let x = mundo.jugador.x;
+        let y = mundo.jugador.y;
+        ctx.fillStyle = "rgb(255, 0, 0)";
+        ctx.fillRect(x - ancho / 2, y - ancho / 2, ancho, alto);
     }
 </script>
 
-<canvas id="pantalla" width="600" height="600"></canvas>
+
+<canvas style="transform: scaleY(-1)" id="pantalla" width="1900" height="400"></canvas>
